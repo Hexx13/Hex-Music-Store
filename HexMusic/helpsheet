@@ -1,0 +1,139 @@
+//start off with composer update
+
+
+
+//Create default controller
+    symfony console ma:con Default
+
+
+
+//Plugins
+    -symfony support
+        enable on project by project basis
+            preferances>search>symfony>enable>restart phpstorm
+        search composer> synchronize IDE settings with composer.json
+    -php anotations
+    -php toolbox
+
+
+
+//default home route example
+     #[Route('/', name: 'homepage')]
+       public function home(): Response
+       {
+           $template = 'default/home.html.twig';
+           $args = [];
+           return $this->render($template, $args);
+       }
+
+
+
+//Example route with params and returns
+ #[Route('/slug/{word1}/{word2}', name: 'slug')]
+    public function slug(string $word1, string $word2): Response
+    {
+        $template = 'default/slug.html.twig';
+        $message = "$word1-$word2";
+        $args = ['message' => $message];
+        return $this->render($template, $args);
+    }
+
+
+//navbar example
+     <nav>
+            <ul>
+                <li>
+                    <a href="{{ path('homepage') }}">
+                        home
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+
+//example for loop
+     <table>
+            {% for food in foods %}
+                <tr>
+                    <td>
+                        {{ food.name }}
+                    </td>
+                    <td>
+                        {{ food.phValue }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+//database for .env
+    MYSQL_USER=root
+    MYSQL_PASSWORD=SQLpass
+    MYSQL_HOST=127.0.0.1
+    MYSQL_PORT=3306
+    MYSQL_DATABASE=evote
+    DATABASE_URL=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
+
+//create database
+    symfony console do:da:cr
+
+//create entity sample
+    symfony console ma:en Hobby
+    //repeat to add other attributes
+
+//create crud for entity
+    symfony console ma:crud Hobby
+
+//create migration
+    symfony console ma:mi
+
+//migrate
+    symfony console do:mi:mi
+
+//Fixtures src/DataFixtures/Appfixtures.php
+    //add your entity to the fixtures class eg
+        class AppFixtures extends Fixture
+        {
+            public function load(ObjectManager $manager): void
+            {
+                $hobby1 = new Hobby();
+                $hobby1->setName("yoga");
+                $hobby1->setIsIndoors(true);
+                $hobby1->setWeeklyCost(15);
+                $manager->persist($hobby1);
+                $manager->flush();
+            }
+        }
+    //load your fixtures
+        symfony console do:fi:lo
+            //type yes when prompted
+
+    //create related entity
+        //create entity eg
+            symfony console ma:en Intensity
+                name? : name
+        //relate it to your existing entity
+            symfony console ma:en Hobby
+                name?: intensity
+                field type?: relation
+                what class?: Intensity
+                relation type? ManyToOne/OneToMany/ManyToMany/OneToOne
+
+
+    //Delete Crud and Re-Create
+        //delete controller eg(src/controller/hobbycontroller.php)
+        //delete entity form(src/form/hobbytype.php)
+        //delete entity template folder(templates/hobby)
+        //symfony console ma:crud Hobby
+            //(add new relation)
+            //(symfony console ma:crud Intensity)
+
+
+    //Dont forget to add tostring for stuff like Intensity to the Entity/Intensity.php
+
+    //Add clickable link to activity page for relation to crud
+        //go to entity's template eg templates/hobby/index
+        //add to table columns
+        //ad <a> with relevant twig path eg
+            <a href="{{ path('app_intensity_show', {'id': hobby.intensity.id})}}">
+                {{ hobby.intensity}}
+            </a>
