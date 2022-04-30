@@ -32,6 +32,12 @@
                 <div class="mb-3">
                     You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
                 </div>
+                {% if app.user.role == "ROLE_ADMIN"%}
+                    <div class="mb-3">
+                        you are da admin
+                    </div>
+                {% endif %}
+
             {% else %}
                 <li>
                     <a href="{{ path('app_login') }}">
@@ -39,6 +45,7 @@
                     </a>
                 </li>
             {% endif %}
+
         </ul>
     </nav>
 
