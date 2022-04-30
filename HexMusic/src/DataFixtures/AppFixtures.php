@@ -26,6 +26,10 @@ class AppFixtures extends Fixture
             'role' => 'ROLE_ADMIN'
         ]);
 
-
+        ProductFactory::createOne([
+            "Ibanez Guitar",
+            1025.00,
+            "Electric Guitar"
+        ]);
     }
 }
