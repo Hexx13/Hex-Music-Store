@@ -27,9 +27,10 @@ class AppFixtures extends Fixture
         ]);
 
         ProductFactory::createOne([
-            "Ibanez Guitar",
-            "Electric Guitar",
-            1000
+            'name' =>"Ibanez Guitar",
+            'type' => "Electric Guitar",
+            'price' => 1000
         ]);
+
     }
 }
