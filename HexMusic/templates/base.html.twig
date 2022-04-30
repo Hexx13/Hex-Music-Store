@@ -25,39 +25,52 @@
         {% endblock %}
     </head>
     <body>
-    <nav>
-        <ul>
-            <li>
-                <a href="{{ path('home') }}">
-                    home
-                </a>
-            </li>
-            <li>
-                <a href="{{ path('catalog') }}">
-                    catalog
-                </a>
-            </li>
+{#    <nav>#}
+{#        <ul>#}
+{#            <li>#}
+{#                <a href="{{ path('home') }}">#}
+{#                    home#}
+{#                </a>#}
+{#            </li>#}
+{#            <li>#}
+{#                <a href="{{ path('catalog') }}">#}
+{#                    catalog#}
+{#                </a>#}
+{#            </li>#}
+
+
+{#        </ul>#}
+{#    </nav>#}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="{{ path('home') }}">Home</a>
+            <a class="nav-item nav-link" href="{{ path('catalog') }}">Catalog</a>
+
             {% if app.user %}
 
-                <div class="mb-3">
-                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-                </div>
+                 <a class="nav-item nav-link" href="{{ path('app_logout') }}">Logout</a>
+
                 {% if app.user.role == "ROLE_ADMIN"%}
-                    <div class="mb-3">
-                        you are da admin
-                    </div>
+                    <a class="nav-item nav-link disabled" href="#">Admin Panel</a>
                 {% endif %}
 
             {% else %}
                 <li>
-                    <a href="{{ path('app_login') }}">
-                        login
+                    <a class="nav-item nav-link" href="{{ path('app_login') }}">
+                        Login
                     </a>
                 </li>
             {% endif %}
 
-        </ul>
-    </nav>
+        </div>
+    </div>
+</nav>
 
         <div class="container">
             <div class="row">
