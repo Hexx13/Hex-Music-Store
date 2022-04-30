@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Factory\ProductFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -24,6 +25,7 @@ class AppFixtures extends Fixture
             'password' => 'doe',
             'role' => 'ROLE_ADMIN'
         ]);
+
 
     }
 }
