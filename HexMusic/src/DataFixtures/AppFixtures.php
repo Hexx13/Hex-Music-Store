@@ -15,15 +15,15 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         UserFactory::createOne([
-            'username' => 'matt',
-            'password' => 'smith',
+            'username' => 'admin',
+            'password' => 'pass',
             'role' => 'ROLE_ADMIN'
         ]);
 
         UserFactory::createOne([
-            'username' => 'john',
-            'password' => 'doe',
-            'role' => 'ROLE_ADMIN'
+            'username' => 'teacher',
+            'password' => 'pass',
+            'role' => 'ROLE_TEACHER'
         ]);
 
         ProductFactory::createOne([
@@ -31,6 +31,5 @@ class AppFixtures extends Fixture
             'type' => "Electric Guitar",
             'price' => 1000
         ]);
-
     }
 }
