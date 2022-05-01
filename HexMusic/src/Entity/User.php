@@ -26,6 +26,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private $role = 'ROLE_USER';
 
+    #[ORM\OneToOne(inversedBy: 'userId', targetEntity: Teachers::class, cascade: ['persist', 'remove'])]
+    private $teachers;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +105,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRole(string $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    public function getTeachers(): ?Teachers
+    {
+        return $this->teachers;
+    }
+
+    public function setTeachers(?Teachers $teachers): self
+    {
+        $this->teachers = $teachers;
 
         return $this;
     }
