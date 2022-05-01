@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TeachersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TeachersRepository::class)]
@@ -24,6 +26,14 @@ class Teachers
 
     #[ORM\OneToOne(mappedBy: 'teachers', targetEntity: User::class, cascade: ['persist', 'remove'])]
     private $userId;
+
+    #[ORM\OneToMany(mappedBy: 'teachers', targetEntity: Lesson::class)]
+    private $lesson;
+
+    public function __construct()
+    {
+        $this->lesson = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,5 +100,35 @@ class Teachers
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection<int, Lesson>
+     */
+    public function getLesson(): Collection
+    {
+        return $this->lesson;
+    }
+
+    public function addLesson(Lesson $lesson): self
+    {
+        if (!$this->lesson->contains($lesson)) {
+            $this->lesson[] = $lesson;
+            $lesson->setTeachers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLesson(Lesson $lesson): self
+    {
+        if ($this->lesson->removeElement($lesson)) {
+            // set the owning side to null (unless already changed)
+            if ($lesson->getTeachers() === $this) {
+                $lesson->setTeachers(null);
+            }
+        }
+
+        return $this;
     }
 }

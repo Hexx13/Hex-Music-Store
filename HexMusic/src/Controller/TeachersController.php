@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Teachers;
-use App\Form\TeachersType;
+use App\Form\Teachers1Type;
 use App\Repository\TeachersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +25,7 @@ class TeachersController extends AbstractController
     public function new(Request $request, TeachersRepository $teachersRepository): Response
     {
         $teacher = new Teachers();
-        $form = $this->createForm(TeachersType::class, $teacher);
+        $form = $this->createForm(Teachers1Type::class, $teacher);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -50,7 +50,7 @@ class TeachersController extends AbstractController
     #[Route('/{id}/edit', name: 'app_teachers_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Teachers $teacher, TeachersRepository $teachersRepository): Response
     {
-        $form = $this->createForm(TeachersType::class, $teacher);
+        $form = $this->createForm(Teachers1Type::class, $teacher);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

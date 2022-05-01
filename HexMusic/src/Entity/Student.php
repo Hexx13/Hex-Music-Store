@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StudentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: StudentRepository::class)]
@@ -21,6 +23,14 @@ class Student
 
     #[ORM\OneToOne(mappedBy: 'student', targetEntity: User::class, cascade: ['persist', 'remove'])]
     private $username;
+
+    #[ORM\OneToMany(mappedBy: 'student', targetEntity: Lesson::class)]
+    private $lesson;
+
+    public function __construct()
+    {
+        $this->lesson = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -76,5 +86,35 @@ class Student
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection<int, Lesson>
+     */
+    public function getLesson(): Collection
+    {
+        return $this->lesson;
+    }
+
+    public function addLesson(Lesson $lesson): self
+    {
+        if (!$this->lesson->contains($lesson)) {
+            $this->lesson[] = $lesson;
+            $lesson->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLesson(Lesson $lesson): self
+    {
+        if ($this->lesson->removeElement($lesson)) {
+            // set the owning side to null (unless already changed)
+            if ($lesson->getStudent() === $this) {
+                $lesson->setStudent(null);
+            }
+        }
+
+        return $this;
     }
 }
