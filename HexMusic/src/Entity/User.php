@@ -29,6 +29,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(inversedBy: 'userId', targetEntity: Teachers::class, cascade: ['persist', 'remove'])]
     private $teachers;
 
+    #[ORM\OneToOne(inversedBy: 'username', targetEntity: Student::class, cascade: ['persist', 'remove'])]
+    private $student;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,6 +125,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
     public function __toString(): string
     {
-        return $this->getid();
+        return $this->getUsername();
     }
+
+    public function getStudent(): ?Student
+    {
+        return $this->student;
+    }
+
+    public function setStudent(?Student $student): self
+    {
+        $this->student = $student;
+
+        return $this;
+    }
+
 }

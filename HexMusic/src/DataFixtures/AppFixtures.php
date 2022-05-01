@@ -2,8 +2,11 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Teachers;
 use App\Factory\ProductFactory;
+use App\Factory\StudentFactory;
 use App\Factory\TeachersFactory;
+use App\Repository\TeachersRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -27,16 +30,28 @@ class AppFixtures extends Fixture
             'role' => 'ROLE_TEACHER'
         ]);
 
+        UserFactory::createOne([
+            'username' => 'student',
+            'password' => 'pass',
+            'role' => 'ROLE_STUDENT'
+        ]);
+
         ProductFactory::createOne([
             'name' =>"Ibanez Guitar",
             'type' => "Electric Guitar",
             'price' => 1000
         ]);
 
+
         TeachersFactory::createOne([
             'name' => "Tim Henson",
             'location' => "Main Store",
             'rate' => 50
         ]);
+
+       StudentFactory::createOne([
+           'name' => "Ivan Draganovic",
+           'instrument'=>"Shawzin"
+       ]);
     }
 }
