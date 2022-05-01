@@ -4,11 +4,19 @@
 
 {% block body %}
 
-    <h1>
-        Book a lesson
-    </h1>
-    <p>
-        Welcome to my website !
-    </p>
+
+        {{ form_start(bookForm) }}
+            {{ form_row(bookForm.date) }}
+            {{ form_row(bookForm.teachers, {
+                label: 'Teacher'
+            }) }}
+            <div style="visibility: hidden">
+                {{ form(bookForm.student, {value:app.user.student } ) }}
+            </div>
+
+            {{ app.user.student }}
+
+            <button type="submit" class="btn">Book</button>
+        {{ form_end(bookForm) }}
 
 {% endblock %}
