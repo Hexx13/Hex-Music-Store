@@ -89,6 +89,6 @@ class Teachers
     }
     public function __toString(): string
     {
-        return $this->userId;
+        return $this->name;
     }
 }
