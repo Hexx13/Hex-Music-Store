@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Factory\ProductFactory;
+use App\Factory\TeachersFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -30,6 +31,12 @@ class AppFixtures extends Fixture
             'name' =>"Ibanez Guitar",
             'type' => "Electric Guitar",
             'price' => 1000
+        ]);
+
+        TeachersFactory::createOne([
+            'name' => "Tim Henson",
+            'location' => "Main Store",
+            'rate' => 50
         ]);
     }
 }
