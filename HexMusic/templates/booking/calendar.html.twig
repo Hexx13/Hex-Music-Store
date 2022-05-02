@@ -1,11 +1,21 @@
 {# templates/booking/calendar.html.twig #}
 {% extends 'base.html.twig' %}
 {% block body %}
-    <a href="{{ path('app_booking_new') }}">Create new booking</a>
-    <div id="calendar-holder"></div>
+    <div id="calendar-holder">
+        <a href="{{ path('app_booking_new') }}"><button type="button" class="btn btn-dark">Create new booking</button></a>
+    </div>
+
+
 {% endblock %}
 
 {% block stylesheets %}
+    <style>
+        #calendar-holder {
+            max-width:1000px;
+            margin: 0 auto;
+        }
+    </style>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.css">
@@ -44,4 +54,6 @@
             calendar.render();
         });
     </script>
+
+
 {% endblock %}

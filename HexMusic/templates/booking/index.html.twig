@@ -13,6 +13,7 @@
                 <th>EndAt</th>
                 <th>Title</th>
                 <th>Student</th>
+                <th>Teacher</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -24,6 +25,7 @@
                 <td>{{ booking.endAt ? booking.endAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ booking.title }}</td>
                 <td>{{ booking.student }}</td>
+                <td>{{ booking.teacher }}</td>
                 <td>
                     <a href="{{ path('app_booking_show', {'id': booking.id}) }}">show</a>
                     <a href="{{ path('app_booking_edit', {'id': booking.id}) }}">edit</a>

@@ -25,6 +25,9 @@ class Booking
     #[ORM\ManyToOne(targetEntity: User::class)]
     private $student;
 
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private $Teacher;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class Booking
     public function setStudent(?User $student): self
     {
         $this->student = $student;
+
+        return $this;
+    }
+
+    public function getTeacher(): ?User
+    {
+        return $this->Teacher;
+    }
+
+    public function setTeacher(?User $Teacher): self
+    {
+        $this->Teacher = $Teacher;
 
         return $this;
     }

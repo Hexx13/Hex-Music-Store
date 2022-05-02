@@ -25,22 +25,6 @@
         {% endblock %}
     </head>
     <body>
-{#    <nav>#}
-{#        <ul>#}
-{#            <li>#}
-{#                <a href="{{ path('home') }}">#}
-{#                    home#}
-{#                </a>#}
-{#            </li>#}
-{#            <li>#}
-{#                <a href="{{ path('catalog') }}">#}
-{#                    catalog#}
-{#                </a>#}
-{#            </li>#}
-
-
-{#        </ul>#}
-{#    </nav>#}
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Navbar</a>
@@ -54,13 +38,18 @@
 
             {% if app.user %}
 
-                 <a class="nav-item nav-link" href="{{ path('app_logout') }}">Logout</a>
 
-                {% if app.user.role == "ROLE_ADMIN"%}
+
+                {% if is_granted('ROLE_ADMIN') %}
                     <a class="nav-item nav-link disabled" href="#">Admin Panel</a>
-                    <a class="nav-item nav-link" href="{{ path ('booking_calendar') }}">Book Calendar</a>
-                {% endif %}
+                    <a class="nav-item nav-link" href="{{ path ('booking_calendar') }}">Lesson Calendar</a>
 
+                {% elseif is_granted('ROLE_TEACHER') %}
+                    <a class="nav-item nav-link" href="{{ path ('booking_calendar') }}">Lesson Calendar</a>
+                {% elseif is_granted('ROLE_STUDENT') %}
+                    <a class="nav-item nav-link" href="{{ path ('booking_calendar') }}">Lesson Calendar</a>
+                {% endif %}
+                <a class="nav-item nav-link" href="{{ path('app_logout') }}">Logout</a>
             {% else %}
                 <li>
                     <a class="nav-item nav-link" href="{{ path('app_login') }}">
@@ -72,14 +61,28 @@
         </div>
     </div>
 </nav>
+<div class="container">
+    <div class="row">
+        <div class="col-1">
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    {% block body %}{% endblock %}
-                </div>
-            </div>
         </div>
+        <div class="col-9">
+            {% block body %}{% endblock %}
+        </div>
+        <div class="col-1">
+
+        </div>
+    </div>
+</div>
+
+
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <div class="col-sm-12">#}
+{#                    #}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
 
     </body>
 </html>
