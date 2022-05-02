@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block body %}
+
+    <h1>Admin Panel</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Crud Pages</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><a href="{{ path('user_index') }}">User-Crud</a></td>
+        </tr>
+        <tr>
+            <td><a href="{{ path('app_booking_index') }}">Booking-Crud</a></td>
+        </tr>
+        <tr>
+            <td><a href="{{ path('app_product_index') }}">Product-Crud</a></td>
+
+        </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

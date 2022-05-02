@@ -27,7 +27,7 @@
     <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Hex Music</a>
+    <a class="navbar-brand" href="{{ path('home') }}">Hex Music</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -37,17 +37,15 @@
             <a class="nav-item nav-link" href="{{ path('catalog') }}">Catalog</a>
 
             {% if app.user %}
-
-
-
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a class="nav-item nav-link disabled" href="#">Admin Panel</a>
                     <a class="nav-item nav-link" href="{{ path ('booking_calendar') }}">Lesson Calendar</a>
+                    <a class="nav-item nav-link disabled" href="#">Admin Panel</a>
 
                 {% elseif is_granted('ROLE_TEACHER') %}
                     <a class="nav-item nav-link" href="{{ path ('booking_calendar') }}">Lesson Calendar</a>
                 {% elseif is_granted('ROLE_STUDENT') %}
                     <a class="nav-item nav-link" href="{{ path ('booking_calendar') }}">Lesson Calendar</a>
+
                 {% endif %}
                 <a class="nav-item nav-link" href="{{ path('app_logout') }}">Logout</a>
             {% else %}
@@ -75,7 +73,7 @@
         </div>
     </div>
 </div>
-    
+
 
     </body>
 </html>

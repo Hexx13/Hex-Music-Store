@@ -32,4 +32,9 @@ class DefaultController extends AbstractController
     {
         return $this->render('booking/calendar.html.twig');
     }
+    #[Route('/adminpanel', name: 'admin_panel', methods: ['GET'])]
+    public function adminPanel(): Response
+    {
+        return $this->render('default/adminPanel.html.twig');
+    }
 }
