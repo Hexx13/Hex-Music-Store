@@ -39,7 +39,7 @@
             {% if app.user %}
                 {% if is_granted('ROLE_ADMIN') %}
                     <a class="nav-item nav-link" href="{{ path ('booking_calendar') }}">Lesson Calendar</a>
-                    <a class="nav-item nav-link disabled" href="#">Admin Panel</a>
+                    <a class="nav-item nav-link" href="{{ path('admin_panel') }}">Admin Panel</a>
 
                 {% elseif is_granted('ROLE_TEACHER') %}
                     <a class="nav-item nav-link" href="{{ path ('booking_calendar') }}">Lesson Calendar</a>
