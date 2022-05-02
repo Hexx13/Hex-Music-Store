@@ -58,6 +58,7 @@
 
                 {% if app.user.role == "ROLE_ADMIN"%}
                     <a class="nav-item nav-link disabled" href="#">Admin Panel</a>
+                    <a class="nav-item nav-link" href="{{ path ('booking_calendar') }}">Book Calendar</a>
                 {% endif %}
 
             {% else %}
