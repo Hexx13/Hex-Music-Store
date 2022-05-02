@@ -31,18 +31,20 @@ class ProductController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $uploadedFile = $form['imageFile']->getData();
-            $destination = $this->getParameter('kernel.project_dir').'/public';
+            $upload = $form['imageFile']->getData();
+                                                                             //the path modified
+            $targetLocation = $this->getParameter('kernel.project_dir').'/public';
 
-            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $fileNameString = pathinfo($upload->getClientOriginalName(), PATHINFO_FILENAME);
 
-            $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
-            $uploadedFile->move(
-                $destination,
-                $newFilename
+                            //remove urlizer
+            $uniqueName = $fileNameString.'-'.uniqid().'.'.$upload->guessExtension();
+            $upload->move(
+                $targetLocation,
+                $uniqueName
             );
-
-            $product->setImage($newFilename);
+            //this modified
+            $product->setImage($uniqueName);
 
             $productRepository->add($product);
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
