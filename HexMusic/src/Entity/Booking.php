@@ -22,6 +22,9 @@ class Booking
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $title;
 
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private $student;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Booking
     public function setTitle(?string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getStudent(): ?User
+    {
+        return $this->student;
+    }
+
+    public function setStudent(?User $student): self
+    {
+        $this->student = $student;
 
         return $this;
     }
