@@ -7,10 +7,12 @@ use CalendarBundle\Entity\Event;
 use CalendarBundle\Event\CalendarEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
 class CalendarSubscriber implements EventSubscriberInterface
 {
     private $bookingRepository;
     private $router;
+
     public function __construct(
         BookingRepository $bookingRepository,
         UrlGeneratorInterface $router
