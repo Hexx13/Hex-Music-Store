@@ -26,4 +26,10 @@ class DefaultController extends AbstractController
 
         return $this->render($template, $argsArray);
     }
+
+    #[Route('/calendar', name: 'booking_calendar', methods: ['GET'])]
+    public function calendar(): Response
+    {
+        return $this->render('booking/calendar.html.twig');
+    }
 }

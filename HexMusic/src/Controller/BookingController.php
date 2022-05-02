@@ -73,12 +73,4 @@ class BookingController extends AbstractController
 
         return $this->redirectToRoute('app_booking_index', [], Response::HTTP_SEE_OTHER);
     }
-
-    #[Route('/calendar', name: 'booking_calendar', methods: ['GET'])]
-    public function calendar(): Response
-    {
-        return $this->render('booking/calendar.html.twig');
-    }
-
-
 }
