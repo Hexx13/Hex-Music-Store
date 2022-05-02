@@ -50,6 +50,9 @@ class BookingController extends AbstractController
     #[Route('/{id}/edit', name: 'app_booking_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Booking $booking, BookingRepository $bookingRepository): Response
     {
+        if ($this->getUser()->getRoles() != "ROLE_ADMIN") {
+            return $this->redirectToRoute('home');
+        }
         $form = $this->createForm(BookingType::class, $booking);
         $form->handleRequest($request);
 
@@ -67,6 +70,9 @@ class BookingController extends AbstractController
     #[Route('/{id}', name: 'app_booking_delete', methods: ['POST'])]
     public function delete(Request $request, Booking $booking, BookingRepository $bookingRepository): Response
     {
+        if ($this->getUser()->getRoles() != "ROLE_ADMIN") {
+            return $this->redirectToRoute('home');
+        }
         if ($this->isCsrfTokenValid('delete'.$booking->getId(), $request->request->get('_token'))) {
             $bookingRepository->remove($booking);
         }

@@ -27,6 +27,9 @@ class UserController extends AbstractController
     #[Route('/', name: 'user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
+        if ($this->getUser()->getRoles() != "ROLE_ADMIN") {
+            return $this->redirectToRoute('home');
+        }
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
@@ -35,6 +38,9 @@ class UserController extends AbstractController
     #[Route('/new', name: 'user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if ($this->getUser()->getRoles() != "ROLE_ADMIN") {
+            return $this->redirectToRoute('home');
+        }
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -60,6 +66,9 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
+        if ($this->getUser()->getRoles() != "ROLE_ADMIN") {
+            return $this->redirectToRoute('home');
+        }
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
@@ -68,6 +77,10 @@ class UserController extends AbstractController
     #[Route('/{id}/edit', name: 'user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
+        if ($this->getUser()->getRoles() != "ROLE_ADMIN") {
+            return $this->redirectToRoute('home');
+        }
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -91,6 +104,10 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
+        if ($this->getUser()->getRoles() != "ROLE_ADMIN") {
+            return $this->redirectToRoute('home');
+        }
+
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
