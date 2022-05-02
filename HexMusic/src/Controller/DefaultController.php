@@ -35,9 +35,6 @@ class DefaultController extends AbstractController
     #[Route('/adminpanel', name: 'admin_panel', methods: ['GET'])]
     public function adminPanel(): Response
     {
-        if ($this->getUser()->getRoles() != "ROLE_ADMIN") {
-            return $this->redirectToRoute('home');
-        }
         return $this->render('default/adminPanel.html.twig');
     }
 }
