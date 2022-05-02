@@ -37,13 +37,13 @@ class ProductController extends AbstractController
 
             $fileNameString = pathinfo($upload->getClientOriginalName(), PATHINFO_FILENAME);
 
-                            //remove urlizer
+                            
             $uniqueName = $fileNameString.'-'.uniqid().'.'.$upload->guessExtension();
             $upload->move(
                 $targetLocation,
                 $uniqueName
             );
-            //this modified
+
             $product->setImage($uniqueName);
 
             $productRepository->add($product);
@@ -71,6 +71,22 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $upload = $form['imageFile']->getData();
+            //the path modified
+            $targetLocation = $this->getParameter('kernel.project_dir').'/public';
+
+            $fileNameString = pathinfo($upload->getClientOriginalName(), PATHINFO_FILENAME);
+
+            //remove urlizer
+            $uniqueName = $fileNameString.'-'.uniqid().'.'.$upload->guessExtension();
+            $upload->move(
+                $targetLocation,
+                $uniqueName
+            );
+            //this modified
+            $product->setImage($uniqueName);
+
             $productRepository->add($product);
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
         }
