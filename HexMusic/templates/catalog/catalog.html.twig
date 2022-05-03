@@ -7,18 +7,18 @@
     <h1>Store Catalog</h1>
 
     <table class="table">
+        <thead>
+        <tr>
+            <th>
+                Product Name
+            </th>
+            <th>
+                Product Type
+            </th>
+            <th>Price</th>
+        </tr>
+        </thead>
         {% for prod in products %}
-            <thead>
-            <tr>
-                <th>
-                    Product Name
-                </th>
-                <th>
-                    Product Type
-                </th>
-                <th>Price</th>
-            </tr>
-            </thead>
             <tr>
                 <td>
                     <a href="product/{{ prod.id }}">
