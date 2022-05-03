@@ -19,7 +19,7 @@ class Product2Type extends AbstractType
             // ->add('image')
             ->add('imageFile', FileType::class,[
                 'mapped' => false])
-            ->add('user')
+//            ->add('user')
         ;
     }
 
