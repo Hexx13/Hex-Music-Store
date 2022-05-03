@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ProductRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,6 +33,7 @@ class DefaultController extends AbstractController
     {
         return $this->render('booking/calendar.html.twig');
     }
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/adminpanel', name: 'admin_panel', methods: ['GET'])]
     public function adminPanel(): Response
     {
