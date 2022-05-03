@@ -21,13 +21,13 @@ class AppFixtures extends Fixture
             'role' => 'ROLE_ADMIN'
         ]);
 
-        UserFactory::createOne([
+        $student1 = UserFactory::createOne([
             'username' => 'student',
             'password' => 'pass',
             'role' => 'ROLE_STUDENT'
         ]);
 
-        UserFactory::createOne([
+        $teacher1 = UserFactory::createOne([
             'username' => 'teacher',
             'password' => 'pass',
             'role' => 'ROLE_TEACHER'
@@ -44,11 +44,13 @@ class AppFixtures extends Fixture
             'image' => "timGuitar.jpg"
         ]);
 
-//        BookingFactory::createOne([
-//
-//            'title'=>"Music lesson at Tim's",
-//            'startAt'=>"2022-05-05 02:02:00",
-//            'endAt'=>"2022-05-05 04:02:00",
-//        ]);
+        BookingFactory::createOne([
+
+            'title'=>"Music lesson at Tim's",
+            'beginAt' => new \DateTime("2022-05-05T02:02:00"),
+            'endAt' => new \DateTime("2022-05-05 04:02:00"),
+            'teacher' => $teacher1,
+            'student' =>$student1
+        ]);
     }
 }
