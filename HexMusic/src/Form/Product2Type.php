@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Product1Type extends AbstractType
+class Product2Type extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -16,10 +16,10 @@ class Product1Type extends AbstractType
             ->add('name')
             ->add('price')
             ->add('type')
-           // ->add('image')
+            // ->add('image')
             ->add('imageFile', FileType::class,[
-                'mapped' => false
-            ])
+                'mapped' => false])
+            ->add('user')
         ;
     }
 

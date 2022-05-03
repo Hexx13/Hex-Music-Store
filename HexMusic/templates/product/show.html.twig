@@ -4,12 +4,12 @@
 
 {% block body %}
     {% if is_granted('ROLE_ADMIN') %}
-    <h1>Product</h1>
+        <h1>Product</h1>
     {% else %}
         <h1>{{ product.name }}</h1>
     {% endif %}
     <div class="text-center">
-        <img class="img-fluid rounded img-thumbnail" src="{{ asset(product.image) }}">
+        <img class="img-fluid rounded img-thumbnail" STYLE="min-width: 300px; max-width: 300px" src="{{ asset(product.image) }}">
     </div>
     <table class="table">
         <tbody>
@@ -27,6 +27,10 @@
                 <th>Name</th>
                 <td>{{ product.name }}</td>
             </tr>
+            <tr>
+                <th>User</th>
+                <td>{{ product.user }}</td>
+            </tr>
         {% endif %}
             <tr>
                 <th>Price</th>
@@ -38,7 +42,6 @@
             </tr>
         </tbody>
     </table>
-
 
     {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('app_product_index') }}">back to list</a>

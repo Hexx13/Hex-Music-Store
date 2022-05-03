@@ -3,14 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use App\Form\Product1Type;
+use App\Form\Product2Type;
 use App\Repository\ProductRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 
 #[Route('/product')]
 class ProductController extends AbstractController
@@ -28,18 +27,17 @@ class ProductController extends AbstractController
     public function new(Request $request, ProductRepository $productRepository): Response
     {
         $product = new Product();
-        $form = $this->createForm(Product1Type::class, $product);
+        $form = $this->createForm(Product2Type::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $upload = $form['imageFile']->getData();
-                                                                             //the path modified
+            //the path modified
             $targetLocation = $this->getParameter('kernel.project_dir').'/public';
 
             $fileNameString = pathinfo($upload->getClientOriginalName(), PATHINFO_FILENAME);
 
-                            
+
             $uniqueName = $fileNameString.'-'.uniqid().'.'.$upload->guessExtension();
             $upload->move(
                 $targetLocation,
@@ -47,6 +45,7 @@ class ProductController extends AbstractController
             );
 
             $product->setImage($uniqueName);
+
 
             $productRepository->add($product);
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
@@ -57,7 +56,6 @@ class ProductController extends AbstractController
             'form' => $form,
         ]);
     }
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
     public function show(Product $product): Response
     {
@@ -69,24 +67,23 @@ class ProductController extends AbstractController
     #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Product $product, ProductRepository $productRepository): Response
     {
-        $form = $this->createForm(Product1Type::class, $product);
+        $form = $this->createForm(Product2Type::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $upload = $form['imageFile']->getData();
             //the path modified
             $targetLocation = $this->getParameter('kernel.project_dir').'/public';
 
             $fileNameString = pathinfo($upload->getClientOriginalName(), PATHINFO_FILENAME);
 
-            //remove urlizer
+
             $uniqueName = $fileNameString.'-'.uniqid().'.'.$upload->guessExtension();
             $upload->move(
                 $targetLocation,
                 $uniqueName
             );
-            //this modified
+
             $product->setImage($uniqueName);
 
             $productRepository->add($product);
