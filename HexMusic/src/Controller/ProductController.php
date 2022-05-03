@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\Product2Type;
 use App\Repository\ProductRepository;
+use App\Repository\UserRepository;
+use http\Client\Curl\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,8 +25,13 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ProductRepository $productRepository): Response
+    /**
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\ORMException
+     */
+    #[Route('/new/', name: 'app_product_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, ProductRepository $productRepository, UserRepository $userRepository): Response
     {
         $product = new Product();
         $form = $this->createForm(Product2Type::class, $product);
@@ -44,11 +51,16 @@ class ProductController extends AbstractController
                 $uniqueName
             );
 
+            $username =  $this->getUser()->getUserIdentifier();
+            $product->setUser($userRepository->findOneBySomeField($username));
             $product->setImage($uniqueName);
 
-
             $productRepository->add($product);
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+            if ($this->isGranted('ROLE_ADMIN')){
+                return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+            } else{
+                return $this->redirectToRoute('catalog', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->renderForm('product/new.html.twig', [
@@ -83,7 +95,7 @@ class ProductController extends AbstractController
                 $targetLocation,
                 $uniqueName
             );
-
+            $product->setUser($this->getUser());
             $product->setImage($uniqueName);
 
             $productRepository->add($product);
