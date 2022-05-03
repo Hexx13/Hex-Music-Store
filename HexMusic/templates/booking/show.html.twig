@@ -7,9 +7,16 @@
 
     <table class="table">
         <tbody>
+        {% if is_granted('ROLE_ADMIN') %}
             <tr>
                 <th>Id</th>
                 <td>{{ booking.id }}</td>
+            </tr>
+        {% endif %}
+            
+            <tr>
+                <th>Title</th>
+                <td>{{ booking.title }}</td>
             </tr>
             <tr>
                 <th>BeginAt</th>
@@ -18,10 +25,6 @@
             <tr>
                 <th>EndAt</th>
                 <td>{{ booking.endAt ? booking.endAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ booking.title }}</td>
             </tr>
             <tr>
                 <th>Student</th>
@@ -33,10 +36,11 @@
             </tr>
         </tbody>
     </table>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_booking_index') }}">back to list</a>
 
-    <a href="{{ path('app_booking_index') }}">back to list</a>
+        <a href="{{ path('app_booking_edit', {'id': booking.id}) }}">edit</a>
 
-    <a href="{{ path('app_booking_edit', {'id': booking.id}) }}">edit</a>
-
-    {{ include('booking/_delete_form.html.twig') }}
+        {{ include('booking/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}
