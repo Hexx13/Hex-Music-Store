@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\formFilling;
+namespace App\Tests\formFillingUsecases;
 
 use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
