@@ -2,5 +2,5 @@
  Third year Web Frameworks project, online music store.
 
 
-# PUBLIShED WEBSITE
+# PUBLISHED WEBSITE
 https://hexmusic.frb.io/
