@@ -36,7 +36,7 @@ class PublicCantSeeEditProductListing extends WebTestCase
         $client = static::createClient();
         $crawler = $client->request('GET', '/');
 
-        
+
         $crawler = $client->request('GET', '/product/1');
 
         $responseCode = $client->getResponse()->getStatusCode();
@@ -46,12 +46,7 @@ class PublicCantSeeEditProductListing extends WebTestCase
     public function testUserCantSeeEditOnProduct(): void
     {
         $client = static::createClient();
-
-        //user login
-//        $userName = 'user';
-//        $userRepository = static::getContainer()->get(UserRepository::class);
-//        $user = $userRepository->findOneByusername($userName);
-//        $client->loginUser($user);
+        
 
         $crawler = $client->request('GET', '/product/1');
 
