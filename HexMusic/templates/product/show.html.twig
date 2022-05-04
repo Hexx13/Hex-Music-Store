@@ -9,7 +9,9 @@
         <h1>{{ product.name }}</h1>
     {% endif %}
     <div class="text-center">
-        <img class="img-fluid rounded img-thumbnail" STYLE="min-width: 300px; max-width: 300px" src="{{ asset(product.image) }}">
+        {% if not product.image  == null %}
+            <img class="img-fluid rounded img-thumbnail" STYLE="min-width: 300px; max-width: 300px" src="{{ asset(product.image) }}">
+        {% endif %}
     </div>
     <table class="table">
         <tbody>

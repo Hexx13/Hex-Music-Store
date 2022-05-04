@@ -38,22 +38,25 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $upload = $form['imageFile']->getData();
-            //the path modified
-            $targetLocation = $this->getParameter('kernel.project_dir').'/public';
+            if (!$form['imageFile']->getData()==null){
+                $upload = $form['imageFile']->getData();
+                //the path modified
+                $targetLocation = $this->getParameter('kernel.project_dir').'/public';
 
-            $fileNameString = pathinfo($upload->getClientOriginalName(), PATHINFO_FILENAME);
+                $fileNameString = pathinfo($upload->getClientOriginalName(), PATHINFO_FILENAME);
 
 
-            $uniqueName = $fileNameString.'-'.uniqid().'.'.$upload->guessExtension();
-            $upload->move(
-                $targetLocation,
-                $uniqueName
-            );
+                $uniqueName = $fileNameString.'-'.uniqid().'.'.$upload->guessExtension();
+                $upload->move(
+                    $targetLocation,
+                    $uniqueName
+                );
+                $product->setImage($uniqueName);
+            }
 
             $username =  $this->getUser()->getUserIdentifier();
             $product->setUser($userRepository->findOneBySomeField($username));
-            $product->setImage($uniqueName);
+
 
             $productRepository->add($product);
             if ($this->isGranted('ROLE_ADMIN')){

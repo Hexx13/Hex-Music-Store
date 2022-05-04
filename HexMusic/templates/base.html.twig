@@ -48,6 +48,8 @@
                 {% elseif is_granted('ROLE_STUDENT') %}
                     <a class="nav-item nav-link" href="{{ path ('booking_calendar') }}">Lesson Calendar</a>
                     <a class="nav-item nav-link" href="{{ path('app_product_new') }}">Sell your gear!</a>
+                {% elseif is_granted('ROLE_USER') %}
+                    <a class="nav-item nav-link" href="{{ path('app_product_new') }}">Sell your gear!</a>
                 {% endif %}
                 <a class="nav-item nav-link" href="{{ path('app_logout') }}">Logout</a>
             {% else %}
