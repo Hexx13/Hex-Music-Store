@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\dbTesting;
 
 use App\Repository\BookingRepository;
 use App\Repository\ProductRepository;

@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\securityTesting;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use App\Repository\UserRepository;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
-
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class NonAdminUsersCantAccessCrudPages extends WebTestCase
 {

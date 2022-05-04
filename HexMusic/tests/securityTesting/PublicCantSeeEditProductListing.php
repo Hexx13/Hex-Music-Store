@@ -1,12 +1,9 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\securityTesting;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
-
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class PublicCantSeeEditProductListing extends WebTestCase
 {
@@ -46,7 +43,6 @@ class PublicCantSeeEditProductListing extends WebTestCase
     public function testUserCantSeeEditOnProduct(): void
     {
         $client = static::createClient();
-        
 
         $crawler = $client->request('GET', '/product/1');
 
